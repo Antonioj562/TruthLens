@@ -1,0 +1,35 @@
+# --- Python (FastAPI) ---
+# Virtual Environment
+.venv/
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# FastAPI/Uvicorn/Database
+.env
+.env.local
+*.db
+*.sqlite3
+
+# --- Bun & React (TypeScript) ---
+# Dependencies
+node_modules/
+.bun/
+
+
+# Bun lockfile
+bun.lockb
+bun.lock
+
+# TypeScript
+*.tsbuildinfo
+
+# --- IDEs & Tools ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

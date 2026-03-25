@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Home from "./pages/Home";
+import Analytics from "./pages/Analytics";
+import Login from "./pages/Login";
+import { useState } from "react";
+import "./App.css";
+import { User } from "./types/auth";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [page, setPage] = useState<"home" | "analytics">("home");
+  const [token, setToken] = useState<string | null>(localStorage.getItem("auth_token"));
+  const [user, setUser] = useState<User | null>(() => {
+    const raw = localStorage.getItem("auth_user");
+    return raw ? (JSON.parse(raw) as User) : null;
+  });
+
+  const onAuthSuccess = (nextToken: string, nextUser: User) => {
+    localStorage.setItem("auth_token", nextToken);
+    localStorage.setItem("auth_user", JSON.stringify(nextUser));
+    setToken(nextToken);
+    setUser(nextUser);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("auth_user");
+    setToken(null);
+    setUser(null);
+  };
+
+  if (!token || !user) {
+    return <Login onAuthSuccess={onAuthSuccess} />;
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="app-shell">
+      <nav className="top-nav">
+        <button
+          onClick={() => setPage("home")}
+          className={page === "home" ? "nav-btn active" : "nav-btn"}
+        >
+          Home
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+        <button
+          onClick={() => setPage("analytics")}
+          className={page === "analytics" ? "nav-btn active" : "nav-btn"}
+        >
+          Analytics
+        </button>
+        <div className="spacer" />
+        <span className="user-pill">{user.email}</span>
+        <button onClick={logout} className="nav-btn">
+          Logout
+        </button>
+      </nav>
+      <main className="page-wrap">
+        {page === "home" ? <Home token={token} /> : <Analytics token={token} />}
+      </main>
+    </div>
+  );
 }
-
-export default App

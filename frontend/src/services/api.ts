@@ -6,7 +6,7 @@ import {
   PredictionResponse,
 } from "../types/prediction";
 
-const BASE_URL = "https://truth-lens-backend-ruddy.vercel.app/"; // Flask backend
+const BASE_URL = "https://truth-lens-backend-ruddy.vercel.app"; // Flask backend
 
 async function errorMessageFromResponse(res: Response): Promise<string> {
   try {

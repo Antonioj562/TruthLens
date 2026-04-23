@@ -1,5 +1,6 @@
 import { AuthResponse } from "../types/auth";
 import {
+  AdminAnalyticsResponse,
   AccountStats,
   FeedbackPayload,
   HistoryResponse,
@@ -7,6 +8,7 @@ import {
 } from "../types/prediction";
 
 const BASE_URL = "https://truth-lens-backend-ruddy.vercel.app"; // Flask backend
+//const BASE_URL = "http://127.0.0.1:5000"; // Local Flask backend
 
 async function errorMessageFromResponse(res: Response): Promise<string> {
   try {
@@ -80,6 +82,16 @@ export async function getHistory(token: string): Promise<HistoryResponse> {
   });
   if (!res.ok) {
     throw new Error("Failed to fetch history");
+  }
+  return res.json();
+}
+
+export async function getAdminAnalytics(token: string): Promise<AdminAnalyticsResponse> {
+  const res = await fetch(`${BASE_URL}/admin/stats`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    throw new Error(await errorMessageFromResponse(res));
   }
   return res.json();
 }

@@ -28,3 +28,22 @@ export type HistoryItem = {
 export type HistoryResponse = {
   items: HistoryItem[];
 };
+
+export type AdminUserStats = {
+  user_id: string;
+  email: string;
+  total_predictions: number;
+  feedback_count: number;
+  accuracy: number;
+  fake_percentage: number;
+};
+
+export type AdminAnalyticsResponse = {
+  overview: {
+    user_count: number;
+    total_predictions: number;
+    feedback_count: number;
+    verified_accuracy: number;
+  };
+  users: AdminUserStats[];
+};

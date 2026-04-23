@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 import secrets
 
 from flask import Blueprint, jsonify, request
@@ -6,6 +7,7 @@ from pymongo.errors import PyMongoError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.database.db import is_db_available, users_collection
+from app.utils.auth import is_admin_user
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -35,13 +37,18 @@ def register():
             "email": email,
             "password_hash": generate_password_hash(password),
             "token": token,
+            "is_admin": email in {
+                item.strip().lower()
+                for item in os.getenv("ADMIN_EMAILS", "").split(",")
+                if item.strip()
+            },
             "created_at": datetime.utcnow(),
         }
         users_collection.insert_one(user_doc)
     except PyMongoError:
         return jsonify({"error": "Failed to register user"}), 500
 
-    return jsonify({"token": token, "user": {"email": email}}), 201
+    return jsonify({"token": token, "user": {"email": email, "is_admin": user_doc["is_admin"]}}), 201
 
 
 @auth_bp.route("/auth/login", methods=["POST"])
@@ -67,4 +74,4 @@ def login():
     token = secrets.token_hex(24)
     users_collection.update_one({"_id": user["_id"]}, {"$set": {"token": token}})
 
-    return jsonify({"token": token, "user": {"email": email}})
+    return jsonify({"token": token, "user": {"email": email, "is_admin": is_admin_user(user)}})

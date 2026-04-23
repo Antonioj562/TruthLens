@@ -1,3 +1,4 @@
+import os
 from typing import Optional
 
 from flask import request
@@ -17,3 +18,19 @@ def get_current_user():
     if not token:
         return None
     return users_collection.find_one({"token": token})
+
+
+def is_admin_user(user) -> bool:
+    if not user:
+        return False
+
+    if user.get("is_admin") is True or user.get("role") == "admin":
+        return True
+
+    admin_emails = {
+        email.strip().lower()
+        for email in os.getenv("ADMIN_EMAILS", "").split(",")
+        if email.strip()
+    }
+    user_email = (user.get("email") or "").strip().lower()
+    return user_email in admin_emails

@@ -36,7 +36,7 @@ export default function Login({ onAuthSuccess }: Props) {
         <p className="subtitle">Sign in to link article history and accuracy to your account.</p>
         <input
           className="text-input"
-          placeholder="Email"
+          placeholder="UserId"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />

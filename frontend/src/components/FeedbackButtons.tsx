@@ -61,7 +61,7 @@ export default function FeedbackButtons({ token, predictionId, verdictLabel }: P
       </p>
       {showNoIdNote && (
         <p className="feedback-warn">
-          This prediction was not saved to the database, so feedback won’t show up in your analytics history until the database is available.
+          This prediction was not saved to the database, so feedback won't show up in your analytics history until the database is available.
         </p>
       )}
 
@@ -73,7 +73,7 @@ export default function FeedbackButtons({ token, predictionId, verdictLabel }: P
           disabled={submitting || locked}
           aria-pressed={selected === "correct"}
         >
-          {submitting && selected === "correct" ? "Sending…" : "Verdict looks right"}
+          {submitting && selected === "correct" ? "Sending..." : "Verdict looks right"}
         </button>
 
         <button
@@ -83,7 +83,7 @@ export default function FeedbackButtons({ token, predictionId, verdictLabel }: P
           disabled={submitting || locked}
           aria-pressed={selected === "incorrect"}
         >
-          {submitting && selected === "incorrect" ? "Sending…" : "Verdict looks wrong"}
+          {submitting && selected === "incorrect" ? "Sending..." : "Verdict looks wrong"}
         </button>
       </div>
 

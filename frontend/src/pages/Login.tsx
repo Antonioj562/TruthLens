@@ -31,9 +31,35 @@ export default function Login({ onAuthSuccess }: Props) {
 
   return (
     <div className="auth-wrap">
-      <h1 className="title">TruthLens Account</h1>
-      <div className="panel">
-        <p className="subtitle">Sign in to link article history and accuracy to your account.</p>
+      <div className="auth-brand">
+        <img
+          src="/truthlensIcon.png"
+          alt="TruthLens icon showing the site's real-vs-fake news detection branding"
+          className="auth-logo"
+        />
+        <div>
+          <h1 className="title">TruthLens</h1>
+          <p className="subtitle">Sign in to keep article history and feedback accuracy tied to your account.</p>
+        </div>
+      </div>
+
+      <div className="panel auth-panel">
+        <div className="auth-mode" aria-label="Authentication mode">
+          <button
+            type="button"
+            className={mode === "login" ? "mode-btn active" : "mode-btn"}
+            onClick={() => setMode("login")}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className={mode === "register" ? "mode-btn active" : "mode-btn"}
+            onClick={() => setMode("register")}
+          >
+            Register
+          </button>
+        </div>
         <input
           className="text-input"
           placeholder="UserId"

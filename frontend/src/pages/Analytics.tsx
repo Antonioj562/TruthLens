@@ -38,7 +38,10 @@ export default function Analytics({ token }: Props) {
 
   return (
     <div className="analytics-wrap">
-      <h1 className="title">Analytics Dashboard</h1>
+      <div className="page-heading compact">
+        <span className="eyebrow">Your activity</span>
+        <h1 className="title">Analytics Dashboard</h1>
+      </div>
 
       <div className="analytics-grid">
         <div className="metric-card">

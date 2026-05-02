@@ -26,10 +26,13 @@ export default function Home({ token }: Props) {
 
   return (
     <div className="home-wrap">
-      <h1 className="title">TruthLens</h1>
-      <p className="subtitle">
-        Analyze news articles using AI to determine if they are real or fake.
-      </p>
+      <div className="page-heading">
+        <span className="eyebrow">Article classifier</span>
+        <h1 className="title">Spot questionable news before it spreads.</h1>
+        <p className="subtitle">
+          Paste a news article and TruthLens will estimate whether the writing resembles real or fake news.
+        </p>
+      </div>
 
       <div className="panel">
         <ArticleInput onSubmit={handleSubmit} loading={loading} />
@@ -55,7 +58,7 @@ export default function Home({ token }: Props) {
         )}
       </div>
 
-      <p className="footer-note">Built for Fake News Detection</p>
+      <p className="footer-note">Use the result as a signal, then verify important claims with trusted sources.</p>
     </div>
   );
 }

@@ -34,8 +34,11 @@ export default function Admin({ token }: Props) {
 
   return (
     <div className="analytics-wrap">
-      <h1 className="title">Admin Dashboard</h1>
-      <p className="subtitle">View prediction totals, feedback activity, and fake-news rates across all accounts.</p>
+      <div className="page-heading compact">
+        <span className="eyebrow">Admin view</span>
+        <h1 className="title">Admin Dashboard</h1>
+        <p className="subtitle">View prediction totals, feedback activity, and fake-news rates across all accounts.</p>
+      </div>
 
       <div className="analytics-grid admin-overview-grid">
         <div className="metric-card">

@@ -55,7 +55,7 @@ export default function App() {
           onClick={() => setPage("home")}
           className={page === "home" ? "nav-btn active" : "nav-btn"}
         >
-          Home
+          Analyze
         </button>
         <button
           onClick={() => setPage("analytics")}
@@ -72,8 +72,8 @@ export default function App() {
           </button>
         )}
         <div className="spacer" />
-        <span className="user-pill">{user.email}</span>
-        <button onClick={logout} className="nav-btn">
+        <span className="user-pill" title={user.email}>{user.email}</span>
+        <button onClick={logout} className="nav-btn nav-btn-muted">
           Logout
         </button>
       </nav>
